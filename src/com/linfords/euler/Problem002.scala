@@ -15,15 +15,12 @@ find the sum of the even-valued terms.
 object Problem002 extends App {
   var f = 1
   var g = 2
-  var sum = 2
-  while (g < 4000000) {
-    val n = f + g
-    if (n % 2 == 0) {
-      sum += n
-    }
+  var sum = 0
+  while (f < 4000000) {
+    if (f % 2 == 0) sum += f
+    val swap = f
     f = g
-    g = n
-    println(f + " " + g + " " + n)
+    g += swap
   }
   println("Sum: " + sum)
 }
