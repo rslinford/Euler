@@ -32,7 +32,7 @@ object Solution006_v1 extends App {
     }
     sum*sum - sumOfSquares
   }
-  println("Answer: " + solve)
+  println("Answer 1: " + solve)
 }
 
 object Solution006_v2 extends App {
@@ -41,11 +41,13 @@ object Solution006_v2 extends App {
     val sum = (1 to 100).sum
     sum*sum - sumOfSquares
   }
-  println("Answer: " + solve)
+  println("Answer 2: " + solve)
 }
 
-object CrossChecker extends App {
-  println("s1(" + Solution006_v1.solve + ") s2(" + Solution006_v2.solve + ") cross check: " + (Solution006_v1.solve == Solution006_v2.solve))
+object CrossChecker006 extends App {
+  val s1 = Solution006_v1.solve
+  val s2 = Solution006_v2.solve
+  println("s1(" + s1 + ") s2(" + s2 + ") cross check: " + (s1 == s2))
 }
 
 

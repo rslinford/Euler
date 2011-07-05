@@ -65,7 +65,7 @@ object Solution002_v3 extends App {
   println("Solution 3: " + solve)
 }
 
-object CrossChecker extends App {
+object CrossChecker002 extends App {
   val s1 = Solution002_v1.solve
   val s2 = Solution002_v2.solve
   val s3 = Solution002_v3.solve
