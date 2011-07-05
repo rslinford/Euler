@@ -1,6 +1,12 @@
 package com.linfords.euler
 
 /*
+Credit goes to excellent tutorial by MadocDoyu:
+  http://www.youtube.com/watch?v=nQMXmOBZPmI
+*/
+
+
+/*
 Problem 1
 05 October 2001
 
@@ -9,6 +15,6 @@ The sum of these multiples is 23.
 
 Find the sum of all the multiples of 3 or 5 below 1000.
 */
-object Problem001 extends App {
+object Solution001 extends App {
   println("Sum: " + (1 until 1000).filter(n => n % 3 == 0 || n % 5 == 0).foldLeft(0)(_ + _));
 }
