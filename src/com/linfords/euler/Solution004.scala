@@ -1,9 +1,5 @@
 package com.linfords.euler
 
-import javax.xml.crypto.Data
-import java.lang.Boolean
-import com.sun.xml.internal.ws.developer.MemberSubmissionAddressing.Validation
-
 /*
 Euler Project Problem 4
 16 November 2001
@@ -74,8 +70,24 @@ object Solution004_v2 extends App {
   println("Answer 2: " + solve)
 }
 
+/*
+A conscise solution from oscarp
+
+http://projecteuler.net/index.php?section=forum&id=4&page=12
+
+ */
+object Solution004_v3 extends App {
+  def solve:Int = {
+    (for(x <- 100 to 999;
+         y <- x to 999;
+         val p = x * y
+         if (p.toString.reverse.mkString == p.toString )) yield p).foldLeft(0)((a,b) => if (b > a) b else a)
+  }
+
+  println("Answer 3: " + solve)
+}
+
 object CrossCheck004 extends App {
-  val s1 = Solution004_v1.solve
-  val s2 = Solution004_v2.solve
-  println("s1(" + s1 + ") s2(" + s2 + ") cross check: " + (s1 == s2))
+  val s = List(Solution004_v1.solve, Solution004_v2.solve, Solution004_v3.solve)
+  println(s + " cross check: " + s.foldLeft(true)((b,a) => b && a==s.head))
 }
