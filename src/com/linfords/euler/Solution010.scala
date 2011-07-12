@@ -1,5 +1,8 @@
 package com.linfords.euler
 
+import collection.mutable.ListBuffer
+import java.lang.Long
+
 /*
 Euler Project Problem 10
 08 February 2002
@@ -22,19 +25,19 @@ http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
  6. All the numbers in the list which are not crossed out are prime.
 */
 object Solution010_v1 extends App {
-  def solve: Int = {
-    def nextPrime(pList: List[Int], candidate: Int = 0): Int = {
+  def solve: Long = {
+    def nextPrime(pList: ListBuffer[Int], candidate: Int = 0): Int = {
       val n = if (candidate == 0) pList.last + 1 else candidate
       for (p <- pList) {
         if (n % p == 0) return nextPrime(pList, n + 1)
       }
       n
     }
-    def primeStream(pList: List[Int] = Nil): Stream[Int] = {
+    def primeStream(pList: ListBuffer[Int] = ListBuffer()): Stream[Int] = {
       val np = if (pList == Nil) 2 else nextPrime(pList)
-      Stream.cons(np, primeStream(pList ::: List(np)))
+      Stream.cons(np, primeStream(pList + np))
     }
-    primeStream().takeWhile(_ < 10).sum
+    primeStream().takeWhile(_ < 10).foldLeft(0L)((b, a) => b + a)
   }
 
   println("Answer 1: " + solve)
