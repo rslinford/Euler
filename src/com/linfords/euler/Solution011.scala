@@ -94,7 +94,7 @@ object Solution011 extends App {
       false
     }
 
-    def product(grid:Array[Array[Int]]):Int = grid(a.x)(a.y) * grid(b.x)(b.y) * grid(c.x)(c.y) * grid(d.x)(d.y)
+    def product(grid: Array[Array[Int]]): Int = grid(a.x)(a.y) * grid(b.x)(b.y) * grid(c.x)(c.y) * grid(d.x)(d.y)
   }
 
   def solve: Int = {
