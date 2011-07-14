@@ -37,7 +37,7 @@ object Solution010_v1 extends App {
       val np = if (pList == Nil) 2 else nextPrime(pList)
       Stream.cons(np, primeStream(pList + np))
     }
-    primeStream().takeWhile(_ < 10).foldLeft(0L)((b, a) => b + a)
+    primeStream().takeWhile(_ < 2000000).foldLeft(0L)((b, a) => b + a)
   }
 
   println("Answer 1: " + solve)
