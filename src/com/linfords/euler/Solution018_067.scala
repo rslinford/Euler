@@ -51,19 +51,33 @@ algorithm to solve it. ;o)
 */
 
 /*
-Credit for algorithm goes to malkit:
+Credit for algorithm goes to malkit
 
    http://blogs.oracle.com/malkit/entry/euler_problem_18_and_67
 */
 
 object Solution018_067 extends App with Helper018_067 {
 
-  def solve: Int = {
-    println(parseTriangle(triText4))
-    1234
+  def flattenRow(r1: List[Int], r2: List[Int]): List[Int] = {
+    if (r1 == Nil) Nil
+    else r1.head + (r2.head max r2.tail.head) :: flattenRow(r1.tail, r2.tail)
   }
 
-  println("Answer: " + solve)
+  def flattenTriangle(triangle: List[List[Int]], flat: List[Int] = Nil): Int = {
+    if (triangle.size == 1) flat.head
+    else {
+      val r1 = triangle.tail.head
+      val r2 = if (flat == Nil) triangle.head else flat
+      flattenTriangle(triangle.tail, flattenRow(r1, r2))
+    }
+  }
+
+  def solve(triText: String): Int = {
+    flattenTriangle(parseTriangle(triText).reverse)
+  }
+
+  println("Answer 018: " + solve(triText15))
+  println("Answer 067: " + solve(triText100))
 }
 
 object Unit018_067 extends App with Helper018_067 {
@@ -73,17 +87,28 @@ object Unit018_067 extends App with Helper018_067 {
   assert(tri4.indexOf(List(7, 4)) == 1)
   assert(tri4.indexOf(List(2, 4, 6)) == 2)
   assert(tri4.indexOf(List(8, 5, 9, 3)) == 3)
+
   val tri100 = parseTriangle(triText100)
   assert(tri100.size == 100)
   assert(tri100.indexOf(List(59)) == 0)
   assert(tri100.indexOf(List(30, 28, 51, 76, 81, 18, 75, 44)) == 7)
   assert(tri100.last.head == 23)
   assert(tri100.last.last == 35)
+
+  assert(Solution018_067.solve(triText4) == 23)
   println("All systems go!")
 }
 
 trait Helper018_067 {
 
+  /*
+  Takes a List of Strings (each a valid integer) separated by "\n" Strings. Splits the List on the "\n" Strings, converts
+  Strings to Ints, and returns the sub-lists into a List. The "\n" Strings are discarded.
+
+  Adapted from S-99: Ninety-Nine Scala Problems
+    P09 (**) Pack consecutive duplicates of list elements into sublists.
+    http://aperiodic.net/phil/scala/s-99/p09.scala
+  */
   def splitLines(ls: List[String]): List[List[Int]] = {
     if (ls.isEmpty) List(List())
     else {
