@@ -23,13 +23,25 @@ object Solution024 extends App with Code024 {
   println("Elapsed seconds: " + ((System.currentTimeMillis() - startTime) / 1000.0))
 }
 
+/*
+Credit goes to Pavel Fatin
+
+    http://pavelfatin.com/scala-for-project-euler/
+
+A one liner... amazing.
+ */
 trait Code024 {
-  def solve = 1234
+def ps(s: String): Seq[String] = if(s.size == 1) Seq(s) else s.flatMap(c => ps(s.filterNot(_ == c)).map(c +))
+
+  def solve = {
+    ps("0123456789")(999999)
+  }
 }
 
 object Unit024 extends Code024 {
   def run = {
-    assert(1 == 1)
+    assert(ps("0123")(0) == "0123")
+    assert(ps("0123")(23) == "3210")
     println("All systems go!")
   }
 }
