@@ -1,5 +1,7 @@
 package com.linfords.euler
 
+import java.math.BigInteger
+
 /*
 Euler Project Problem 25
 30 August 2002
@@ -38,12 +40,27 @@ object Solution025 extends App with Code025 {
 }
 
 trait Code025 {
-  def solve = 1234
+  def fib: Stream[(Int, BigInteger)] = {
+    def recurse(n: Int, f1: BigInteger = new BigInteger("0"), f2: BigInteger = new BigInteger("1")): Stream[(Int, BigInteger)] =
+      Stream.cons((n, f2), recurse((n + 1), f2, f1 add f2))
+    recurse(1)
+  }
+
+  def solve = fib.find(_._2.toString.length() == 1000).head._1
 }
 
 object Unit025 extends Code025 {
   def run = {
-    assert(1 == 1)
+    fib.take(50) foreach {
+      x => print(x + " ")
+    }
+    assert(fib(0)._2.compareTo(new BigInteger("1")) == 0)
+    assert(fib(1)._2.compareTo(new BigInteger("1")) == 0)
+    assert(fib(2)._2.compareTo(new BigInteger("2")) == 0)
+    assert(fib(3)._2.compareTo(new BigInteger("3")) == 0)
+    assert(fib(11)._2.compareTo(new BigInteger("144")) == 0)
+    assert(fib.find(_._1 == 12).head._2.compareTo(new BigInteger("144")) == 0)
+    assert(fib.find(_._2.toString.length() == 3).head._1 == 12)
     println("All systems go!")
   }
 }
