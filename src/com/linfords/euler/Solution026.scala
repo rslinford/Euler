@@ -32,33 +32,28 @@ object Solution026 extends App with Code026 {
   println("Elapsed seconds: " + ((System.currentTimeMillis() - startTime) / 1000.0))
 }
 
+/*
+Credit goes to Pavel Fatin
+   http://pavelfatin.com/scala-for-project-euler/
+
+Wish I understood how this works. Would need to study Discrete Logarithms
+   http://en.wikipedia.org/wiki/Discrete_logarithm
+
+Also helpful, Group Mathmatics
+   http://en.wikipedia.org/wiki/Group_%28mathematics%29
+
+I learned that Discrete Logarithms and Integer Factorization share properties that make them
+useful in cryptography.
+ */
 trait Code026 {
-  def decimalPart(denominator: Int, numerator: Int = 1): Stream[Int] = {
-    val numeratorShifted = numerator * 10
-    val digit = numeratorShifted / denominator
-    val remainder = numeratorShifted % denominator
-    if (remainder == 0) Stream(digit)
-    else Stream.cons(digit, decimalPart(denominator, remainder))
-  }
+  val ps = (2 until 1000).map(i => (1 to 2000)
+    .find(BigInt(10).modPow(_, i) == 1))
 
-  (2 to 100).map(d => (d, decimalPart(d))).foreach(t => {
-    print(t._1 + " ")
-    t._2.take(50) foreach {
-      print
-    };
-    println()
-  })
-
-  def solve = 1234
+  def solve = 2 + ps.indexOf(Some(ps.flatten.max))
 }
 
 object Unit026 extends Code026 {
   def run = {
-    assert(decimalPart(2) == Seq(5))
-    assert(decimalPart(3).take(5) == Seq(3, 3, 3, 3, 3))
-    assert(decimalPart(4) == Seq(2, 5))
-    assert(decimalPart(7).take(12) == Seq(1, 4, 2, 8, 5, 7, 1, 4, 2, 8, 5, 7))
-    assert(decimalPart(10) == Seq(1))
     println("All systems go!")
   }
 }
